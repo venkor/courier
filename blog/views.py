@@ -1,15 +1,22 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post, Comment, Packages
+from .forms import PostForm, CommentForm, PackageForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+#def package_list(request):
+
+
 def post_list(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 	return render(request, 'blog/post_list.html', {'posts': posts})
+
+def package_list(request):
+	packages = Packages.objects.filter(is_package_delivered=False).order_by('deliver_till')
+	return render(request, 'blog/package_list.html', {'packages': packages})
 
 def post_detail(request, pk):
 	post = get_object_or_404(Post, pk=pk)

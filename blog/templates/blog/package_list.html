@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div>
+  <div class="inline">
+    <h1>A very nice header we got here.</h1>
+
+      <button type="button" class="btn btn-primary btn-lg">Assign Packages</button>
+
+  </div>
+
+        <div class="table-responsive">
+
+              <table class="table table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>Delivered</th>
+                    <th>Package ID</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Deliver till</th>
+                <tr>
+                  {% for package in packages %}
+                <tr>
+                  <td>
+                    {{ forloop.counter }}
+                  </td>
+                  <td class="info">
+                    {% if package.is_package_delivered == False %}
+                      Nie
+                    {% else %}
+                      Tak
+                    {% endif %}
+                  </td>
+                  <td class="danger">{{ package.package_id }}</td>
+                  <td class="active">{{ package.sender_name }}</td>
+                  <td class="success">{{ package.recipient_name }}</td>
+                  <td class="warning">{{ package.deliver_till }}</td>
+                </tr>
+                  {% empty %}
+                    <div><p>Sorry, no packages to deliver...yet :)</p></div>
+                  {% endfor %}
+              </table>
+        </div>
+
+</div>
+{% endblock content %}
