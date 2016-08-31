@@ -1,13 +1,24 @@
 {% extends 'blog/base.html' %}
 
-{% block content %}
-<div>
-  <div class="inline">
-    <h1>A very nice header we got here.</h1>
-
-      <button type="button" class="btn btn-primary btn-lg">Assign Packages</button>
-
-  </div>
+{% block packages_content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 col-md-4">
+                    <h3>List of packages: </h3>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <!-- TO DO: Django + AJAX = wyswietlanie listy paczek (Wszystkie, Doreczone, Niedoreczone)  -->
+                  <div data-toggle="buttons">
+                    <label class="btn btn-default btn-circle btn-lg active"><input type="radio" name="q1" value="0"><i class="glyphicon glyphicon-envelope" checked></i></label>
+                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" name="q1" value="1"><i class="glyphicon glyphicon-send"></i></label>
+                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" name="q1" value="2"><i class="glyphicon glyphicon-ban-circle"></i></label>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <button type="button" class="btn btn-primary btn-lg inline">Assign Packages  <span class="badge">5</span></button>
+                </div>
+            </div>
+        </div>
 
         <div class="table-responsive">
 
@@ -19,12 +30,14 @@
                     <th>From</th>
                     <th>To</th>
                     <th>Deliver till</th>
-                <tr>
+                    <th>Manage</th>
+                </tr>
                   {% for package in packages %}
                 <tr>
                   <td>
                     {{ forloop.counter }}
                   </td>
+
                   <td class="info">
                     {% if package.is_package_delivered == False %}
                       Nie
@@ -32,16 +45,22 @@
                       Tak
                     {% endif %}
                   </td>
-                  <td class="danger">{{ package.package_id }}</td>
+                  <td class="danger small">{{ package.package_id }}</td>
                   <td class="active">{{ package.sender_name }}</td>
                   <td class="success">{{ package.recipient_name }}</td>
                   <td class="warning">{{ package.deliver_till }}</td>
+                  <td class="warning">
+                    <a role="button" class="btn btn-info btn-xs" href="{% url 'blog.views.package_detail' pk=package.pk %}">Detail</a>
+
+                  </td>
+
                 </tr>
+
                   {% empty %}
                     <div><p>Sorry, no packages to deliver...yet :)</p></div>
                   {% endfor %}
               </table>
         </div>
-
 </div>
-{% endblock content %}
+
+{% endblock packages_content %}

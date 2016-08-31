@@ -13,4 +13,8 @@ urlpatterns = [
 	url(r'^comment/(?P<pk>\d+)/approve/$', views.comment_approve, name='comment_approve'),
 	url(r'^comment/(?P<pk>\d+)/remove/$', views.comment_remove, name='comment_remove'),
 	url(r'^packages/$', views.package_list, name='package_list'),
+	url(r'^packages/(?P<pk>[0-9]+)/$', views.package_detail, name='package_detail'),
+	#url(r'^package/new/$', views.package_new, name='package_new'),
+	#url(r'^package/(?P<pk>[0-9]+)/edit/$', views.package_edit, name='package_edit'),
+	#url(r'^package/(?P<pk>\d+)/remove/$', views.package_remove, name='package_remove'),
 ]

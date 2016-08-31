@@ -14,13 +14,19 @@ def post_list(request):
 	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
 	return render(request, 'blog/post_list.html', {'posts': posts})
 
+def post_detail(request, pk):
+	post = get_object_or_404(Post, pk=pk)
+	return render(request, 'blog/post_detail.html', {'post': post})
+
+@login_required
 def package_list(request):
 	packages = Packages.objects.filter(is_package_delivered=False).order_by('deliver_till')
 	return render(request, 'blog/package_list.html', {'packages': packages})
 
-def post_detail(request, pk):
-	post = get_object_or_404(Post, pk=pk)
-	return render(request, 'blog/post_detail.html', {'post': post})
+@login_required
+def package_detail(request, pk):
+	package = get_object_or_404(Packages, pk=pk)
+	return render(request, 'blog/package_detail.html', {'package': package})
 
 @login_required
 def post_new(request):
