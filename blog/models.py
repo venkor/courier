@@ -1,6 +1,8 @@
 from django.db import models
+from datetime import datetime
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
+from django.contrib.auth.models import User
 import uuid
 
 
@@ -40,6 +42,7 @@ class Comment(models.Model):
 
 
 class Packages(models.Model):
+    user = models.ForeignKey(User)
     package_id = models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
     sender_name = models.CharField(max_length=200, blank=True)
     sender_customer_number = models.CharField(max_length=20, blank=True)

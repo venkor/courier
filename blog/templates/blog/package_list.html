@@ -8,11 +8,14 @@
                 </div>
                 <div class="col-xs-6 col-md-4">
                   <!-- TO DO: Django + AJAX = wyswietlanie listy paczek (Wszystkie, Doreczone, Niedoreczone)  -->
-                  <div data-toggle="buttons">
-                    <label class="btn btn-default btn-circle btn-lg active"><input type="radio" name="q1" value="0"><i class="glyphicon glyphicon-envelope" checked></i></label>
-                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" name="q1" value="1"><i class="glyphicon glyphicon-send"></i></label>
-                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" name="q1" value="2"><i class="glyphicon glyphicon-ban-circle"></i></label>
-                  </div>
+                  <!-- <div data-toggle="buttons">
+                    <label class="btn btn-default btn-circle btn-lg active"><input type="radio" class="package_radio" name="package_radio" value="0"><i class="glyphicon glyphicon-envelope" checked></i></label>
+                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" class="package_radio" name="package_radio" value="1"><i class="glyphicon glyphicon-send"></i></label>
+                    <label class="btn btn-default btn-circle btn-lg">       <input type="radio" class="package_radio" name="package_radio" value="2"><i class="glyphicon glyphicon-ban-circle"></i></label>
+                  </div> -->
+                <a href="{% url 'package_list_0' %}" class="btn btn-primary btn-lg inline"><span class="glyphicon glyphicon-envelope"></span></a>
+                <a href="{% url 'package_list_1' %}" class="btn btn-primary btn-lg inline"><span class="glyphicon glyphicon-send"></span></a>
+                <a href="{% url 'package_list_2' %}" class="btn btn-primary btn-lg inline"><span class="glyphicon glyphicon-ban-circle"></span></a>
                 </div>
                 <div class="col-xs-6 col-md-4">
                   <button type="button" class="btn btn-primary btn-lg inline">Assign Packages  <span class="badge">5</span></button>
@@ -38,18 +41,22 @@
                     {{ forloop.counter }}
                   </td>
 
-                  <td class="info">
+
                     {% if package.is_package_delivered == False %}
-                      Nie
+                      <td class="danger">Nie</td>
                     {% else %}
-                      Tak
+                      <td class="success">Tak</td>
                     {% endif %}
-                  </td>
-                  <td class="danger small">{{ package.package_id }}</td>
+
+                  <td class="info small">{{ package.package_id }}</td>
                   <td class="active">{{ package.sender_name }}</td>
-                  <td class="success">{{ package.recipient_name }}</td>
-                  <td class="warning">{{ package.deliver_till }}</td>
-                  <td class="warning">
+                  <td class="active">{{ package.recipient_name }}</td>
+                  <!-- TO DO -->
+
+                      <td class="warning">{{ package.deliver_till}}</td>
+
+
+                  <td class="">
                     <a role="button" class="btn btn-info btn-xs" href="{% url 'blog.views.package_detail' pk=package.pk %}">Detail</a>
 
                   </td>

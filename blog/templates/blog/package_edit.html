@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap %}
+{% block packages_edit %}
+
+    <h1>New package</h1>
+
+    <form method="POST" class="form-horizontal">
+      <legend>Fill the fields:</legend>
+
+        {% csrf_token %}
+        <!-- <fieldset disabled> -->
+          <div class="form-group">
+            {{ form.package_id|bootstrap_horizontal }}
+          </div>
+        <!-- </fieldset> -->
+          <hr>
+          <div class="form-group">
+            {{ form.sender_name|bootstrap_horizontal }}
+            {{ form.sender_customer_number|bootstrap_horizontal }}
+            {{ form.sender_telephone_number|bootstrap_horizontal }}
+            {{ form.sender_email|bootstrap_horizontal }}
+            {{ form.sender_country|bootstrap_horizontal }}
+            {{ form.sender_street_name|bootstrap_horizontal }}
+            {{ form.sender_street_number|bootstrap_horizontal }}
+            {{ form.sender_postal_code|bootstrap_horizontal }}
+          </div>
+          <hr>
+          <div class="form-group">
+            {{ form.recipient_name|bootstrap_horizontal }}
+            {{ form.recipient_customer_number|bootstrap_horizontal }}
+            {{ form.recipient_telephone_number|bootstrap_horizontal }}
+            {{ form.recipient_email|bootstrap_horizontal }}
+            {{ form.recipient_country|bootstrap_horizontal }}
+            {{ form.recipient_street_name|bootstrap_horizontal }}
+            {{ form.recipient_street_number|bootstrap_horizontal }}
+            {{ form.recipient_postal_code|bootstrap_horizontal }}
+          </div>
+          <hr>
+          <div class="form-group">
+            {{ form.package_height|bootstrap_horizontal }}
+            {{ form.package_width|bootstrap_horizontal }}
+            {{ form.package_length|bootstrap_horizontal }}
+            {{ form.package_weight|bootstrap_horizontal }}
+          </div>
+          <hr>
+          <div class="form-group">
+            {{ form.collect_on_delivery|bootstrap_horizontal }}
+            {{ form.collect_on_delivery_amount|bootstrap_horizontal }}
+            {{ form.is_package_delivered|bootstrap_horizontal }}
+            {{ form.additional_info|bootstrap_horizontal }}
+            {{ form.deliver_till|bootstrap_horizontal }}
+          </div>
+
+        <button type="submit" class="save btn btn-info">Save</button>
+        </div>
+    </form>
+{% endblock %}

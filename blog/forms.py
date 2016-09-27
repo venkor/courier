@@ -1,25 +1,31 @@
 from django import forms
-
 from .models import Post, Comment, Packages
-
+from django.utils import timezone as django_tz
+from django.contrib.admin import widgets
+import datetime
 class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'text',)
+        fields = ['title', 'text',]
 
 class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('author', 'text',)
+        fields = ['author', 'text',]
 
 class PackageForm(forms.ModelForm):
 
     class Meta:
         model = Packages
-        fields = (
+        widgets = {
+            # 'deliver_till': forms.DateTimeInput(attrs={'type':'datetime-local', 'format':'%Y-%m-%d %H:%M'})
+            'deliver_till': forms.DateTimeInput(attrs={'type':'datetime-local'}, format=None)
+        }
+        fields = [
         'package_id',
+        'sender_name',
         'sender_customer_number',
         'sender_telephone_number',
         'sender_email',
@@ -43,4 +49,4 @@ class PackageForm(forms.ModelForm):
         'collect_on_delivery_amount',
         'is_package_delivered',
         'additional_info',
-        'deliver_till',)
+        'deliver_till',]

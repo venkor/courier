@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from datetime import datetime, timedelta
 from .models import Post, Comment, Packages
 from .forms import PostForm, CommentForm, PackageForm
 from django.shortcuts import redirect
@@ -19,8 +20,44 @@ def post_detail(request, pk):
 	return render(request, 'blog/post_detail.html', {'post': post})
 
 @login_required
-def package_list(request):
+def add_package(request):
+	if request.method == "POST":
+		form = PackageForm(request.POST)
+		if form.is_valid():
+			package = form.save(commit=False)
+			package.user = request.user
+			package.save()
+			return redirect('package_detail', pk=package.pk)
+	else:
+		form = PackageForm()
+	return render(request, 'blog/package_edit.html', {'form': form})
+
+
+
+# Done not so pretty...RESTful maybe??
+#All packages.
+@login_required
+def package_list_0(request):
+	packages = Packages.objects.all().order_by('deliver_till')
+	time_threshold = datetime.now() + timedelta(days=5)
+	results = Packages.objects.filter(deliver_till__lt=time_threshold)
+	# if expression1:
+	# packages = Packages.objects.filter(is_package_delivered=False).order_by('deliver_till')
+	# elif expression2:
+	# packages = Packages.objects.filter(is_package_delivered=True).order_by('deliver_till')
+	# else:
+	# packages = Packages.objects.all().order_by('deliver_till')
+
+	return render(request, 'blog/package_list.html', {'packages': packages})
+#Not delivered packages.
+@login_required
+def package_list_1(request):
 	packages = Packages.objects.filter(is_package_delivered=False).order_by('deliver_till')
+	return render(request, 'blog/package_list.html', {'packages': packages})
+#Delivered packages.
+@login_required
+def package_list_2(request):
+	packages = Packages.objects.filter(is_package_delivered=True).order_by('deliver_till')
 	return render(request, 'blog/package_list.html', {'packages': packages})
 
 @login_required
