@@ -25,8 +25,9 @@ SECRET_KEY = 'vwxmj#$jq9otk#bpvj29+78*_=(_(zj9ymj_@kwvqeiwm6tjk*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+#Allowed hosts should be adjusted -> allowing everything is bad idea. SECURITY!
+#ALLOWED_HOSTS = ['www.toucan.deaftone.com', 'toucan.deaftone.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
